@@ -20,7 +20,7 @@
 5. 제안된 시스템의 와인 향 식별 성능 비교를 위해 LSTM 대신에 기존의 SVM(Support Vector Machine), Random Forest, KNN(K-Nearest Neighbor), MLP(Multi-Layer Perceptron), RNN 등 총 5개의 모델을 고려하였다. 이때, 각 시스템의 와인 향 식별 성능은 5가지 아로마 키트에 대한 평균 정확도 측정을 통해 평가되었다. <br>
 <br>
 제안된 시스템을 포함한 총 6가지의 와인 향 식별 시스템에 대한 평균 정확도 성능 분석 결과는 표 1과 같다. 표 1로부터, 와인 향 식별 정확도는 제안된 LSTM 기반 시스템이 약 97.6%로 RNN(약 95.7%), SVM(약 94.6%), Random Forest(약 92.8%), MLP(약 92.5%), KNN(57.3%) 기반의 시스템 보다 높음을 확인하였다.<br>
-![image](https://github.com/wonicom/Tabular_Model/assets/123945441/56355c37-d2bb-42ab-9b43-c49e07f56ac5)
-<br>
+![image](https://github.com/wonicom/Tabular_Model/assets/123945441/56355c37-d2bb-42ab-9b43-c49e07f56ac5)<br>
+
 ## 3. 결론
 본 실은 와인 향 식별의 정확도를 높이기 위해, 후각센서와 LSTM으로 구성된 진보된 전자코 시스템을 제안하였다. 특히, 제안된 시스템은 후각센서 Grove-Gas Sensor V2를 사용하여 와인 향 속의 복합적인 화학성분을 감지하도록 하였으며. LSTM을 사용하여 후각센서의 드리프트 문제를 보완하고 출력 데이터 셋을 심층적으로 분석하도록 하였다. 나아가, Blackcurrent, Smoky, Strawberry, Truffle, Violet 등 5가지 아로마 키트를 활용한 실험 결과를 통해 제안된 시스템의 우수한 와인 향 식별 성능을 확인하였다.
