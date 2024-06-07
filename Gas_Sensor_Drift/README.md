@@ -17,31 +17,29 @@ Sensor drift는 주변 환경의 온도, 습도, 압력뿐만 아니라 센서 �
 
 데이터셋 드리프트를 확인하기 위해 SVM 모델을 사용하여 정확도를 평가했다. Batch1을 훈련 세트로 설정하고 Batch2부터 Batch10까지 각각을 테스트 세트로 설정하여 평가를 진행했다. 표에 나와 있는 바와 같이, 실험 배치에 따라 분류기의 성능이 달라지며, 이는 시간이 지남에 따라 변화가 있음을 나타낸다.(표에서 Batch1에서 Batch10으로 데이터 수집이 진행되는 동안) 분류기의 성능이 저하되는 것은 센서 드리프트의 지표로 적용할 수 있다. 이 실험은 센서에서 수집된 데이터가 드리프트를 겪는지 여부를 검증하며, 드리프트가 분류기의 성능에 부정적인 영향을 미친다는 것을 보여준다.<br>
 
-<img width="370" alt="image" src="https://github.com/wonicom/Tabular_Model/assets/123945441/b4f55b92-1c3a-4063-872c-700dcfbdc0c2">
+<img width="500" alt="image" src="https://github.com/wonicom/Tabular_Model/assets/123945441/b4f55b92-1c3a-4063-872c-700dcfbdc0c2">
 
 ## Ensemble Models in Experiment
 ### A. Data Generation
 딥러닝에서는 구조화된 데이터가 과적합 문제를 겪고 전체적인 성능이 낮아지는 경향이 있어서, 구조화된 데이터 분석에서 딥러닝의 활용이 상대적으로 적은 연구 결과를 보인다. 그래서 우리는 구조화된 데이터의 소수 클래스를 증강하기 위해 CT-GAN을 사용해. 비록 전통적이고 효과적인 오버샘플링 기법들이 있긴 하지만, 딥러닝의 장점을 활용하려는 것이다. CT-GAN은 연속형 변수와 범주형 변수로 구성된 구조화된 데이터를 생성할 때 발생하는 문제를 해결하기 위해 설계된 GAN 기반 아키텍처다. 특히 표형 데이터를 합성하는 데 특화되어 있다. CT-GAN을 사용했을 때, 사용하지 않았을 때(Table2)와 비교해서 성능이 크게 향상된 걸 알 수 있다.<br>
 
-<img width="389" alt="image" src="https://github.com/wonicom/Tabular_Model/assets/123945441/35df5b4a-09c6-4707-abbf-ce212b9695af">
+<img width="500" alt="image" src="https://github.com/wonicom/Tabular_Model/assets/123945441/35df5b4a-09c6-4707-abbf-ce212b9695af">
 
 <br>
 
 ### Base Classifier
 다음 두 가지 데이터 설정을 고려한다. Setting01에서는 최신 배치 데이터를 훈련 세트로 선택한다. 이 결정은 센서 드리프트로 인해 발생하는 테스트 세트와 훈련 세트 간의 차이를 최소화하기 위해서이다. Setting02에서는 다른 접근 방식을 취한다. 최신 배치만 선택하는 대신, 최신 배치 이전의 모든 데이터를 훈련 세트로 사용한다.
 
-<img width="389" alt="image" src="https://github.com/wonicom/Tabular_Model/assets/123945441/79a75202-c295-4dec-9937-e3a1820e2b1e">
-<img width="389" alt="image" src="https://github.com/wonicom/Tabular_Model/assets/123945441/c590e7b5-9721-48d7-98c5-89d316008c47">
-<img width="389" alt="image" src="https://github.com/wonicom/Tabular_Model/assets/123945441/d617c57d-2db9-4f4b-89af-b91a8cd7c53e">
+<img width="500" alt="image" src="https://github.com/wonicom/Tabular_Model/assets/123945441/79a75202-c295-4dec-9937-e3a1820e2b1e">
+<img width="500" alt="image" src="https://github.com/wonicom/Tabular_Model/assets/123945441/c590e7b5-9721-48d7-98c5-89d316008c47">
+<img width="500" alt="image" src="https://github.com/wonicom/Tabular_Model/assets/123945441/d617c57d-2db9-4f4b-89af-b91a8cd7c53e">
 
 ### Ensemble Classifier
 TSL 앙상블 모델은 TabNet, SVM, 그리고 LSTM을 기본 분류기로 채택한다. 이 모델들의 하이퍼파라미터 설정은 앞서 언급한 구성과 일치한다. 모델의 구조는 그림에 나타난 대로이다.
 <img width="528" alt="image" src="https://github.com/wonicom/Tabular_Model/assets/123945441/2de928a1-2920-4c5c-83fa-ce16d16037cd">
 앙상블 학습은 여러 개의 개별 학습기를 훈련시키고 그들의 예측을 결합하여 목표 함수를 학습하는 방법들의 모음을 말한다. 투표 분류기 모델은 개별 머신 러닝 분류기라고 하는 여러 독립된 모델을 결합하여 하나의 모델로 만드는 앙상블 학습 방법이다. 이는 개별 알고리즘보다는 메타 분류기 알고리즘으로 간주된다. 앙상블 학습 접근법은 예측 모델의 성능을 향상시킬 수 있어 유용하다. 앙상블 학습은 분산과 편향을 감소시켜[18] 궁극적으로 예측 정확도를 개선한다. 투표 분류기는 여러 모델로부터 학습하고, 선택될 가능성에 따라 출력을 예측한다. 우리는 서로 다른 투표 방법을 사용하여 이들을 비교했다.
 
-![image](https://github.com/wonicom/Tabular_Model/assets/123945441/ce885d67-957f-4050-9cdf-a19d1edb7118)
-
-<img width="386" alt="image" src="https://github.com/wonicom/Tabular_Model/assets/123945441/e2d0e285-8ff0-4fe1-9a06-53be91828981">
+<img width="500" alt="image" src="https://github.com/wonicom/Tabular_Model/assets/123945441/e2d0e285-8ff0-4fe1-9a06-53be91828981">
 
 투표에는 세 가지 방법이 있다: 소프트 투표, 하드 투표, 가중 투표이다. 소프트 투표는 약한 학습기들의 예측 확률 값을 평균이나 가중 합을 사용한다. 개별 학습기의 예측보다는 예측 확률 값의 평균이 중요하며, 최종 예측은 가장 높은 확률을 가진 클래스를 선택하여 결정된다. 반면 하드 투표는 약한 학습기들의 예측을 다수결로 기반으로 예측을 수행한다. 가중 투표는 각 학습기에 다른 가중치를 할당할 수 있으며, 단순한 평균이 아니라 확률 값의 가중 합을 사용한다.<br>
 <br>
