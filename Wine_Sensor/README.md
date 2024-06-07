@@ -12,9 +12,9 @@
 2.  정확한 데이터 셋 측정 및 수집을 위해 실험 전 실험 공간을 환기하였고, 후각 센서와 아로마 키트를 포집 장치로 감싸 향의 공기중으로의 분산을 방지하였다.<br>
 3. 딥러닝 처리를 위한 각 레드 와인 향에 대한 후각센서 출력 데이터 셋은 크게 훈련을 위한 Train-set, 유효 성능 평가를 한 Validation-set, 본격적인 성능을 측정하기 위한 Test-set으로 구분된다. 이때, 각각의 데이터 셋 길이는 순차적으로 7000 time-step, 1500 time-step, 1500 time-step이며, 1 time-step은 2초로 설정되었다. 또한, 딥러닝 입력 데이터 셋에 ’0’ 등의 결측치가 있는 경우, Preprocessing 과정을 통해 제거하였다. 그림 2는 Blackcurrent, Smoky, Strawberry, Truffle, Violet 등 5가지 향에 대한 후각센서 출력 데이터 셋을 나타낸다.<br>
 <br>
-black currant
+black currant<br>
 ![image](https://github.com/wonicom/Tabular_Model/assets/123945441/e6a537ae-c0ab-40b9-8f65-bb041c3bb014)<br>
-<br>
+
 ![image](https://github.com/wonicom/Tabular_Model/assets/123945441/98842000-b22e-4488-9a11-44e8a355c8a5)<br>
 ![image](https://github.com/wonicom/Tabular_Model/assets/123945441/20d02c47-ecd6-400c-926d-503b7d8b5da5)<br>
 ![image](https://github.com/wonicom/Tabular_Model/assets/123945441/59f1e013-2f8b-483a-b6b5-16ee8d08a32d)<br>
@@ -23,6 +23,7 @@ black currant
 5. 제안된 시스템의 와인 향 식별 성능 비교를 위해 LSTM 대신에 기존의 SVM(Support Vector Machine), Random Forest, KNN(K-Nearest Neighbor), MLP(Multi-Layer Perceptron), RNN 등 총 5개의 모델을 고려하였다. 이때, 각 시스템의 와인 향 식별 성능은 5가지 아로마 키트에 대한 평균 정확도 측정을 통해 평가되었다. <br>
 <br>
 제안된 시스템을 포함한 총 6가지의 와인 향 식별 시스템에 대한 평균 정확도 성능 분석 결과는 표 1과 같다. 표 1로부터, 와인 향 식별 정확도는 제안된 LSTM 기반 시스템이 약 97.6%로 RNN(약 95.7%), SVM(약 94.6%), Random Forest(약 92.8%), MLP(약 92.5%), KNN(57.3%) 기반의 시스템 보다 높음을 확인하였다.<br>
+
 ![image](https://github.com/wonicom/Tabular_Model/assets/123945441/56355c37-d2bb-42ab-9b43-c49e07f56ac5)<br>
 
 ## 3. 결론
